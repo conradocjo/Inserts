@@ -1,0 +1,13 @@
+#formularioScript {
+    margin-top: 2%;
+}
+.jumbotron {
+    padding : 3% !important;
+}
+#alertAcao {
+    display: none;
+}
+
+#alertCopy{
+    display: none;
+}

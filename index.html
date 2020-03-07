@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <link href="app/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Pra ficar tudo certis</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="alert alert-warning" role="alert" id="alertAcao">
+            Você deve anexar o XLS e digitar o nome da tabela antes de clicar na ação (Insert, Delete ou Update)!
+        </div>
+        <div class="alert alert-secondary" role="alert" id="alertCopy">
+            Script copiado para o clipboard!
+        </div>
+        <div class="cabecalho">
+            <h1>Inserts</h1>
+        </div>
+        <form>
+            <div class="jumbotron" id="formularioScript">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Nome da tabela:</label>
+                        <input type="text" id="nomeTabelaText">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="carregaArquivos">
+                            <label id="labelCarregaArquivos" class="custom-file-label" for="inputGroupFile01">Escolha
+                                seu XLS...</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="opcao" id="botaoInsert" autocomplete="off"
+                                    value="Insert">Insert
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="opcao" id="botaoUpdate" autocomplete="off"
+                                    value="Update">Update
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="opcao" id="botaoDelete" autocomplete="off"
+                                    value="Delete">Delete
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="jumbotron" id="resultadoDaConsulta">
+            <textarea disabled=true id="textAreaResultado" class="form-control" rows="3"></textarea><br>
+            <div class="d-flex justify-content-end">
+                <input type="button" class="btn btn-secondary" value="Copiar" id="botaoCopiar">
+            </div>
+        </div>
+
+        <footer>Powered by Conrado</footer>
+    </div>
+
+
+    <script src="./src/script.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
