@@ -11,16 +11,54 @@ class Script {
         var $botaoDelete = document.querySelector('#botaoDelete');
         var $botaoUpdate = document.querySelector('#botaoUpdate');
         var $botaoCarregaArquivos = document.querySelector('#carregaArquivos');
+        var retorno2 = [];
+
+        var linhasArquivoCarregado = null;
 
         $botaoCarregaArquivos.addEventListener('change', function () {
-            debugger
             let $labelCarregaArquivos = document.querySelector('#labelCarregaArquivos');
             $labelCarregaArquivos.innerHTML = $botaoCarregaArquivos.value
+            
+            var fileToLoad = $botaoCarregaArquivos.files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsText(fileToLoad, "UTF-8")
+            fileReader.onload = function (fileLoadedEvent) {
+                debugger
+                linhasArquivoCarregado = fileLoadedEvent.target.result.split("\n").map(function(linhasArquivoCarregado){
+                    var teste =  linhasArquivoCarregado.trim().split(";");
+                    var retorno = [];
+                    
+                    teste.forEach(x=>{
+                        if (isNaN(x)) {
+                            retorno.push(`'${x}'`)
+                        } else if (x==""){
+
+                        } else {
+                            retorno.push(parseInt(x))
+                        }
+                        
+                    })
+                    if (retorno.length > 0) {
+                        retorno2.push(retorno)
+                    }
+                    
+                })
+                linhasArquivoCarregado = retorno2
+                return linhasArquivoCarregado
+                
+            }
         });
 
         $botaoInsert.addEventListener('click', function () {
+            debugger
+            var query = "";
             if (nomeDaTabela.value != "" && $botaoCarregaArquivos.value != "") {
-                var query = `INSERT INTO ${nomeDaTabela.value} () VALUES ()`
+                linhasArquivoCarregado.forEach(x => {
+                    query += `INSERT INTO ${nomeDaTabela.value} VALUES (${x})\n`
+                });
+
+                console.log(query)
+                
                 textArea.innerHTML = query;
                 document.querySelector('#alertAcao').style.display = 'none';
             } else {
@@ -30,17 +68,18 @@ class Script {
         });
 
         $botaoDelete.addEventListener('click', function () {
-            console.log('clicou botão delete')
-            document.querySelector('#alertAcao').style.display = 'none';
+            debugger
+            if (nomeDaTabela.value != null && nomeDaTabela.value !== "") {
+                console.log(linhasArquivoCarregado)
+            } else {
+                document.querySelector('#alertAcao').style.display = 'block';
+            }
         });
 
         $botaoUpdate.addEventListener('click', function () {
             console.log('clicou botão update')
             document.querySelector('#alertAcao').style.display = 'none';
         });
-
-        this.copiar(textArea)
-
     }
 
     copiar(textoDaArea) {
@@ -52,16 +91,8 @@ class Script {
         });
     }
 
-    teste() {
-        var req = new XMLHttpRequest();
-        req.open("GET", url, true);
-        req.responseType = "arraybuffer";
-
-        req.onload = function (e) {
-            var data = new Uint8Array(req.response);
-            var workbook = XLSX.read(data, { type: "array" }); //Faz o "parse"
-        };
-        req.send();
+    gerarScript() {
+        console.log(document.querySelector('#textoCapturado'))
     }
 
 }
