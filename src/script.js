@@ -54,7 +54,7 @@ class Script {
             var query = "";
             if (nomeDaTabela.value != "" && $botaoCarregaArquivos.value != "") {
                 linhasArquivoCarregado.forEach(x => {
-                    query += `INSERT INTO ${nomeDaTabela.value} VALUES (${x})\n`
+                    query += `INSERT INTO ${nomeDaTabela.value} VALUES (${x});\n`
                 });
 
                 console.log(query)
